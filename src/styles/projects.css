@@ -1,0 +1,151 @@
+.projects {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.projects-label {
+  position: absolute;
+  top: 3rem;
+  left: 2rem;
+  z-index: 5;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.3em;
+  color: var(--red);
+}
+
+.projects-track {
+  display: flex;
+  align-items: center;
+  gap: 4vw;
+  padding: 0 8vw;
+  will-change: transform;
+}
+
+.drop {
+  position: relative;
+  flex: 0 0 auto;
+  width: min(70vw, 640px);
+  min-height: 60vh;
+  padding: 3rem;
+  border: 1px solid var(--surface);
+  display: flex;
+  overflow: hidden;
+}
+
+.drop-visual {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  transform: scale(1.05);
+  pointer-events: none;
+}
+
+.drop:hover .drop-visual {
+  opacity: 0.6;
+  transform: scale(1);
+}
+
+.drop-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.drop-number {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.25em;
+  color: var(--red);
+}
+
+.drop-name {
+  font-weight: 900;
+  font-size: clamp(1.8rem, 4vw, 3.2rem);
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  transition: letter-spacing 0.6s ease-out;
+}
+
+.drop:hover .drop-name {
+  letter-spacing: 0.02em;
+}
+
+.drop-name-ar {
+  font-weight: 400;
+  color: var(--gray);
+  font-size: 0.6em;
+}
+
+.drop-type {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gray);
+}
+
+.drop-tagline {
+  color: var(--gray);
+  font-size: 0.95rem;
+  font-style: normal;
+}
+
+.drop-detail {
+  color: var(--gray);
+  font-size: 0.8rem;
+  line-height: 1.7;
+  max-width: 46ch;
+}
+
+.drop-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: auto;
+  padding-top: 1rem;
+}
+
+.drop-pill {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.05em;
+  color: var(--gray);
+  background: var(--surface);
+  padding: 0.35em 0.8em;
+}
+
+.drop-url {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  color: var(--red);
+  text-transform: uppercase;
+}
+
+@media (max-width: 768px) {
+  .drop {
+    width: 82vw;
+    padding: 1.75rem;
+    min-height: 65vh;
+  }
+
+  .projects-track {
+    gap: 6vw;
+    padding: 0 9vw;
+  }
+
+  .drop-detail {
+    font-size: 0.75rem;
+  }
+}

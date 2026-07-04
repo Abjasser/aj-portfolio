@@ -1,0 +1,76 @@
+.contact {
+  padding: 10rem 2rem 4rem;
+  min-height: 70vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-lines {
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-line {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.75rem 0;
+  border-top: 1px solid var(--surface);
+  font-family: var(--mono);
+  font-size: clamp(0.85rem, 2.4vw, 1.4rem);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-align: left;
+  transition: color 0.3s ease-out, padding-left 0.3s ease-out;
+}
+
+.contact-line:last-child {
+  border-bottom: 1px solid var(--surface);
+}
+
+.contact-line:hover {
+  padding-left: 1rem;
+}
+
+.contact-arrow {
+  opacity: 0;
+  transform: translateX(-8px);
+  transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+  color: var(--white);
+  flex-shrink: 0;
+}
+
+.contact-line:hover .contact-arrow {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.contact-copied {
+  font-size: 0.7rem;
+  letter-spacing: 0.25em;
+  color: var(--red);
+}
+
+.site-footer {
+  margin-top: auto;
+  padding-top: 6rem;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.25em;
+  color: var(--gray);
+}
+
+@media (max-width: 600px) {
+  .contact {
+    padding: 6rem 1.5rem 3rem;
+  }
+
+  .site-footer {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}

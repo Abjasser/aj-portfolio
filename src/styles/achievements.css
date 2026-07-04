@@ -1,0 +1,75 @@
+.achievements {
+  padding: 10rem 2rem;
+}
+
+.credentials-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 3rem;
+}
+
+.credential {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  border-top: 1px solid var(--surface);
+  padding-top: 2rem;
+}
+
+.credential-symbol {
+  font-size: 2.5rem;
+  line-height: 1;
+  color: var(--red);
+}
+
+.credential-figure {
+  margin: 0;
+}
+
+.credential-figure img {
+  width: 100%;
+  max-width: 220px;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border: 1px solid var(--red);
+  background: var(--surface);
+}
+
+.credential-label-ar {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--gray);
+  margin-top: 0.75rem;
+}
+
+.credential-title {
+  font-weight: 900;
+  font-size: 1rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  line-height: 1.4;
+}
+
+.credential-desc {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  line-height: 1.8;
+  color: var(--gray);
+}
+
+@media (max-width: 1024px) {
+  .credentials-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .achievements {
+    padding: 6rem 1.5rem;
+  }
+
+  .credentials-row {
+    grid-template-columns: 1fr;
+    gap: 4rem;
+  }
+}
