@@ -8,8 +8,8 @@ export const projects = [
     stack: ['Python', 'FastAPI', 'GPT-4o', 'Claude', 'Gemini', 'Railway', 'Netlify'],
     tagline: 'Three models. One truth. No translator judges its own translation.',
     detail:
-      "Arabic media bias detection using a Cross-LLM Blind Consensus Pipeline. Three LLMs translate independently, then classify each other's output — never their own. 1,468 high-confidence Arabic sentences. Chrome Extension + Web App.",
-    url: null,
+      "Arabic media bias detection using a Cross-LLM Blind Consensus Pipeline. Three LLMs translate independently, then classify each other's output — never their own. 1,468 high-confidence Arabic sentences. Chrome Extension + Web Application — live at bayanv1.netlify.app.",
+    url: 'https://bayanv1.netlify.app/en',
   },
   {
     id: 'alwordle',
@@ -102,7 +102,7 @@ export const achievements = [
 export const identity = {
   name: 'Abdullah K. Aljasser',
   initials: 'AJ',
-  role: 'NLP Engineer · AI Systems Builder · Riyadh',
+  role: 'Systems · Products · Experiments · Riyadh',
   email: 'Abjasser1@gmail.com',
   github: 'github.com/abjasser',
   linkedin: 'linkedin.com/in/abjasser',
@@ -110,14 +110,19 @@ export const identity = {
 
 export const about = {
   statement:
-    'I work at the intersection of Arabic language, machine learning, and autonomous systems. I build things that process language at scale, make decisions without constant supervision, and work in a linguistic context most AI tools ignore.',
+    "I build software that solves real problems — games people play, tools teams rely on, systems that make decisions at scale. My work crosses disciplines: AI research, full-stack products, automation, and interfaces that don't feel like software.",
   domains: [
-    'Arabic NLP',
-    'LLM Systems',
+    'AI & NLP Systems',
+    'Full-Stack Products',
     'Agentic Pipelines',
-    'Full-Stack Web',
+    'Game Development',
     'Prompt Engineering',
   ],
+  education: {
+    degree: 'B.Sc. Information Systems',
+    school: 'Imam Muhammad ibn Saud Islamic University',
+    years: '2021 – 2026',
+  },
   makersMark:
     'This portfolio was designed and built in a single prompt. Not a template. Not a tutorial. One precise instruction to a frontier AI model — and this is what came out. That is what prompt engineering looks like at its ceiling.',
 }

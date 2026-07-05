@@ -3,7 +3,7 @@ import gsap from 'gsap'
 import { identity } from '../data.js'
 import '../styles/hero.css'
 
-const LINES = ['I BUILD SYSTEMS', 'THAT THINK IN ARABIC.']
+const LINES = ['I BUILD THINGS', 'THAT WORK.']
 
 export default function Hero({ ready }) {
   const rootRef = useRef(null)

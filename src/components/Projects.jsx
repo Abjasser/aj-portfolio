@@ -1,10 +1,7 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useCallback, useState } from 'react'
 import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { projects } from '../data.js'
 import '../styles/projects.css'
-
-gsap.registerPlugin(ScrollTrigger)
 
 const GRADIENTS = [
   'radial-gradient(120% 120% at 20% 20%, #1a1a1a 0%, #0a0a0a 60%, #c0392b22 100%)',
@@ -17,33 +14,61 @@ const GRADIENTS = [
 export default function Projects() {
   const sectionRef = useRef(null)
   const trackRef = useRef(null)
+  const touchStartX = useRef(0)
+  const [navVisible, setNavVisible] = useState(false)
+
+  const scrollByCard = useCallback((direction) => {
+    const track = trackRef.current
+    const card = track.querySelector('.drop')
+    if (!card) return
+    const cardWidth = card.getBoundingClientRect().width
+    const gap = parseFloat(getComputedStyle(track).columnGap || getComputedStyle(track).gap || 0)
+    const distance = (cardWidth + gap) * direction
+
+    const maxScroll = track.scrollWidth - track.clientWidth
+    const target = Math.min(Math.max(track.scrollLeft + distance, 0), maxScroll)
+
+    gsap.to(track, {
+      scrollLeft: target,
+      duration: 0.6,
+      ease: 'power2.out',
+    })
+  }, [])
+
+  useEffect(() => {
+    const track = trackRef.current
+
+    const onTouchStart = (e) => {
+      touchStartX.current = e.touches[0].clientX
+    }
+    const onTouchEnd = (e) => {
+      const dx = e.changedTouches[0].clientX - touchStartX.current
+      if (Math.abs(dx) > 40) {
+        scrollByCard(dx < 0 ? 1 : -1)
+      }
+    }
+
+    track.addEventListener('touchstart', onTouchStart, { passive: true })
+    track.addEventListener('touchend', onTouchEnd, { passive: true })
+
+    return () => {
+      track.removeEventListener('touchstart', onTouchStart)
+      track.removeEventListener('touchend', onTouchEnd)
+    }
+  }, [scrollByCard])
 
   useEffect(() => {
     const section = sectionRef.current
-    const track = trackRef.current
-
-    const ctx = gsap.context(() => {
-      const getScrollAmount = () => -(track.scrollWidth - window.innerWidth)
-
-      gsap.to(track, {
-        x: getScrollAmount,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: section,
-          start: 'top top',
-          end: () => `+=${track.scrollWidth - window.innerWidth}`,
-          pin: true,
-          scrub: 1,
-          invalidateOnRefresh: true,
-        },
-      })
-    }, section)
-
-    return () => ctx.revert()
+    const observer = new IntersectionObserver(
+      ([entry]) => setNavVisible(entry.isIntersecting),
+      { threshold: 0.2 }
+    )
+    observer.observe(section)
+    return () => observer.disconnect()
   }, [])
 
   return (
-    <section className="projects" ref={sectionRef} id="drops">
+    <section className="projects" id="drops" ref={sectionRef}>
       <span className="projects-label">DROPS</span>
       <div className="projects-track" ref={trackRef}>
         {projects.map((p, i) => {
@@ -85,6 +110,28 @@ export default function Projects() {
             </Tag>
           )
         })}
+      </div>
+      <div className={`projects-nav ${navVisible ? 'is-visible' : ''}`}>
+        <button
+          className="projects-nav-btn"
+          onClick={() => scrollByCard(-1)}
+          aria-label="Previous project"
+          data-hover
+        >
+          <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true">
+            <path d="M11 3L5 9l6 6" stroke="currentColor" strokeWidth="1.4" fill="none" />
+          </svg>
+        </button>
+        <button
+          className="projects-nav-btn"
+          onClick={() => scrollByCard(1)}
+          aria-label="Next project"
+          data-hover
+        >
+          <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true">
+            <path d="M7 3l6 6-6 6" stroke="currentColor" strokeWidth="1.4" fill="none" />
+          </svg>
+        </button>
       </div>
     </section>
   )

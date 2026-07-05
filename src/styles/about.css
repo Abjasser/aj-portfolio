@@ -38,6 +38,30 @@
   opacity: 0;
 }
 
+.about-education {
+  margin-top: 4rem;
+  opacity: 0;
+}
+
+.about-education-label {
+  display: block;
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  color: var(--red);
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+
+.about-education-degree,
+.about-education-school,
+.about-education-years {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  line-height: 1.7;
+  color: var(--gray);
+}
+
 .makers-mark {
   margin-top: 6rem;
   font-family: var(--mono);

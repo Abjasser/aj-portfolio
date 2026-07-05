@@ -26,7 +26,7 @@ export default function About() {
         }
       )
       gsap.fromTo(
-        ['.about-domains li', '.makers-mark'],
+        ['.about-domains li', '.about-education', '.makers-mark'],
         { y: 20, opacity: 0 },
         {
           y: 0,
@@ -60,6 +60,12 @@ export default function About() {
             <li key={d}>{d}</li>
           ))}
         </ul>
+      </div>
+      <div className="about-education">
+        <span className="about-education-label">EDUCATION</span>
+        <p className="about-education-degree">{about.education.degree}</p>
+        <p className="about-education-school">{about.education.school}</p>
+        <p className="about-education-years">{about.education.years}</p>
       </div>
       <p className="makers-mark">{about.makersMark}</p>
     </section>
