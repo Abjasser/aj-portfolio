@@ -4,18 +4,31 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 gsap.registerPlugin(ScrollTrigger)
 
-export const MOBILE_QUERY = '(max-width: 767px)'
+export const MOBILE_QUERY = '(max-width: 767px), (max-height: 500px)' // compact: phones, portrait and landscape
 export const REDUCED_QUERY = '(prefers-reduced-motion: reduce)'
+
+// Small-viewport height probe: svh does not change when mobile browser toolbars show or hide,
+// so the fixed frame stays put while scrolling.
+let probe = null
+function viewH() {
+  if (!probe) {
+    probe = document.createElement('div')
+    probe.setAttribute('aria-hidden', 'true')
+    probe.style.cssText =
+      'position:fixed;top:0;left:0;width:0;height:100vh;height:100svh;visibility:hidden;pointer-events:none'
+    document.body.appendChild(probe)
+  }
+  return probe.offsetHeight || window.innerHeight
+}
 
 // Geometry of the room: the inner rectangle ("back wall") is inset from the viewport.
 export function getInsets() {
-  const W = window.innerWidth
-  const H = window.innerHeight
+  const W = document.documentElement.clientWidth || window.innerWidth
+  const H = viewH()
   const mobile = window.matchMedia(MOBILE_QUERY).matches
-  const ix = mobile ? 18 : Math.max(72, Math.round(W * 0.1))
-  const it = mobile ? 44 : Math.round(H * 0.15)
-  const ib = mobile ? 84 : Math.round(H * 0.15)
-  return { W, H, ix, it, ib, mobile }
+  const ix = mobile ? Math.round(Math.min(32, Math.max(26, W * 0.075))) : Math.max(72, Math.round(W * 0.1))
+  const iy = mobile ? (H <= 500 ? Math.max(28, Math.round(H * 0.08)) : Math.round(H * 0.13)) : Math.round(H * 0.15)
+  return { W, H, ix, it: iy, ib: iy, mobile }
 }
 
 let lenis = null
@@ -65,10 +78,10 @@ export function initScene({ onActive }) {
       const { H, W, it, ib, ix, mobile } = g
       const T = it
       const B = H - ib
-      const dT = mobile ? H * 0.4 : it
-      const dB = mobile ? H * 0.4 : ib
+      const dT = it
+      const dB = ib
       const wide = (W / (W - 2 * ix) - 1) * 0.9
-      const tilt = mobile ? 9 : 34
+      const tilt = mobile ? 38 : 34
       const map = (y) =>
         y < T ? T - dT * (1 - Math.exp(-(T - y) / dT)) : y > B ? B + dB * (1 - Math.exp(-(y - B) / dB)) : y
       for (const b of blocks) {
@@ -139,7 +152,11 @@ export function initScene({ onActive }) {
   const st = ScrollTrigger.create({ start: 0, end: 'max', onUpdate: render })
   const ro = new ResizeObserver(queue)
   ro.observe(document.querySelector('main'))
-  window.addEventListener('resize', queue)
+  const onResize = () => {
+    const n = getInsets()
+    if (n.W !== g.W || n.H !== g.H || n.mobile !== g.mobile) queue()
+  }
+  window.addEventListener('resize', onResize)
   window.addEventListener('scroll', render, { passive: true })
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(queue)
 
@@ -147,7 +164,7 @@ export function initScene({ onActive }) {
     cancelAnimationFrame(raf)
     st.kill()
     ro.disconnect()
-    window.removeEventListener('resize', queue)
+    window.removeEventListener('resize', onResize)
     window.removeEventListener('scroll', render)
     gsap.ticker.remove(tick)
     if (lenis) lenis.destroy()

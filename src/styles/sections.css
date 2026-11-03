@@ -2,6 +2,7 @@ main {
   position: relative;
   z-index: 2;
   padding: var(--it) var(--ix) var(--ib);
+  overflow-x: clip;
 }
 
 [data-wrap] {
@@ -27,6 +28,7 @@ main {
   display: block;
   width: 100%;
   height: clamp(220px, 44vh, 520px);
+  height: clamp(220px, 44svh, 520px);
 }
 
 .intro-title,
@@ -110,8 +112,17 @@ main {
 }
 
 .row-meta,
-.row-tag {
+.row-tag,
+.row-desc {
   grid-column: 2;
+}
+
+.row-desc {
+  margin-top: 1.2rem;
+  max-width: 60ch;
+  color: var(--gray);
+  font-family: var(--sans);
+  font-size: 1rem;
 }
 
 .row-meta {
@@ -430,7 +441,8 @@ main {
   }
   .row-title,
   .row-meta,
-  .row-tag {
+  .row-tag,
+  .row-desc {
     grid-column: 1;
   }
   .row-num {

@@ -15,16 +15,17 @@ export default function Frame({ filter, onFilter, active }) {
   const [g, setG] = useState(getInsets)
 
   useEffect(() => {
-    const on = () => setG(getInsets())
+    const on = () => {
+      const n = getInsets()
+      setG((o) => (o.W === n.W && o.H === n.H && o.mobile === n.mobile ? o : n))
+    }
     window.addEventListener('resize', on)
     return () => window.removeEventListener('resize', on)
   }, [])
 
-  const { W, H, ix, it, ib, mobile } = g
+  const { W, H, ix, it, ib } = g
   const cur = GROUP[active] === 'about' ? 'credentials' : active
   const x0 = ix, x1 = W - ix, y0 = it, y1 = H - ib
-  const k = mobile ? 0.4 : 1 // mobile: shortened diagonals
-  const lerp = (a, b) => a + (b - a) * k
   const diag = [
     [x0, y0, 0, 0],
     [x1, y0, W, 0],
@@ -39,9 +40,9 @@ export default function Frame({ filter, onFilter, active }) {
 
   return (
     <>
-      <svg className="frame" width={W} height={H} viewBox={`0 0 ${W} ${H}`} aria-hidden="true">
+      <svg className="frame" viewBox={`0 0 ${W} ${H}`} aria-hidden="true">
         {diag.map(([ax, ay, bx, by], i) => (
-          <line key={i} x1={ax} y1={ay} x2={lerp(ax, bx)} y2={lerp(ay, by)} />
+          <line key={i} x1={ax} y1={ay} x2={bx} y2={by} />
         ))}
         <rect x={x0} y={y0} width={Math.max(0, x1 - x0)} height={Math.max(0, y1 - y0)} />
       </svg>

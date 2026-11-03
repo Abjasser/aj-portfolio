@@ -19,6 +19,7 @@ export default function Experience() {
                   {e.org} / {e.department}
                 </span>
                 <span className="row-tag">{e.period}</span>
+                {e.description && <p className="row-desc">{e.description}</p>}
               </div>
               <span className="row-rule" aria-hidden="true" />
             </article>

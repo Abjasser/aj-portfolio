@@ -2,9 +2,6 @@ import { useEffect, useRef } from 'react'
 import { REDUCED_QUERY } from '../scene.js'
 
 const ACCENT = '192,57,43'
-const SLICES = 9
-const COLS = 8
-const ROWS = 5
 
 // Procedural one-point-perspective wireframe room on a canvas.
 export default function Room() {
@@ -15,6 +12,7 @@ export default function Room() {
     const ctx = cv.getContext('2d')
     const reduced = window.matchMedia(REDUCED_QUERY).matches
     let w = 0, h = 0, raf = 0
+    let SLICES = 9, COLS = 8, ROWS = 5
     const cur = { x: 0, y: 0 }
     const tgt = { x: 0, y: 0 }
     const pointer = { x: 0, y: 0 }
@@ -88,6 +86,10 @@ export default function Room() {
       const dpr = Math.min(window.devicePixelRatio || 1, 2)
       w = cv.clientWidth
       h = cv.clientHeight
+      const small = w < 600 // lighter grid on narrow screens
+      SLICES = small ? 6 : 9
+      COLS = small ? 5 : 8
+      ROWS = small ? 3 : 5
       cv.width = Math.round(w * dpr)
       cv.height = Math.round(h * dpr)
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
@@ -108,14 +110,22 @@ export default function Room() {
       target()
       kick()
     }
+    const onTouch = (e) => {
+      const t = e.touches[0]
+      if (t) onMove(t)
+    }
     if (!reduced) {
       window.addEventListener('pointermove', onMove, { passive: true })
+      window.addEventListener('touchstart', onTouch, { passive: true })
+      window.addEventListener('touchmove', onTouch, { passive: true })
       window.addEventListener('scroll', onScroll, { passive: true })
     }
     return () => {
       ro.disconnect()
       cancelAnimationFrame(raf)
       window.removeEventListener('pointermove', onMove)
+      window.removeEventListener('touchstart', onTouch)
+      window.removeEventListener('touchmove', onTouch)
       window.removeEventListener('scroll', onScroll)
     }
   }, [])

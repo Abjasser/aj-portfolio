@@ -68,7 +68,7 @@ export const projects = [
 
 export const categories = ['ai', 'web', 'games', 'security']
 
-export const experience = [{ role: "CO-OP TRAINEE", org: "MOBILY", department: "DATA FACTORY & DIGITAL", period: "JUN 2026 — PRESENT" }]
+export const experience = [{ role: "CO-OP TRAINEE", org: "MOBILY", department: "DATA FACTORY & DIGITAL", period: "JUN 2026 — PRESENT", description: "Took charge of an AI agent for product definition project that helped automate the iPhone 18 launch. The project required integrating many systems, from the catalog to WCM and APG, among others." }]
 
 export const achievements = [
   {
@@ -111,7 +111,7 @@ export const achievements = [
 export const identity = {
   name: 'Abdullah K. Aljasser',
   initials: 'AJ',
-  role: 'Systems · Products · Experiments · Riyadh',
+  role: 'Systems · Products · Experiments',
   email: 'Abjasser1@gmail.com',
   github: 'github.com/abjasser',
   linkedin: 'linkedin.com/in/abjasser',
