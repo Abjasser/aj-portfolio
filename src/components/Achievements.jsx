@@ -1,59 +1,39 @@
-import { useEffect, useRef } from 'react'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { achievements } from '../data.js'
-import '../styles/achievements.css'
-
-gsap.registerPlugin(ScrollTrigger)
 
 export default function Achievements() {
-  const rootRef = useRef(null)
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        '.credential',
-        { y: 60, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.6,
-          ease: 'power2.out',
-          stagger: 0.1,
-          scrollTrigger: {
-            trigger: rootRef.current,
-            start: 'top 70%',
-          },
-        }
-      )
-    }, rootRef.current)
-    return () => ctx.revert()
-  }, [])
-
   return (
-    <section className="achievements" ref={rootRef} id="credentials">
-      <span className="section-label">CREDENTIALS</span>
-      <div className="credentials-row">
-        {achievements.map((a) => (
-          <article className="credential" key={a.symbol}>
-            <span className="credential-symbol">{a.symbol}</span>
-            {a.hasImage && (
-              <figure className="credential-figure">
-                <img
-                  src={`${import.meta.env.BASE_URL}medal.jpg`}
-                  alt={a.imageAlt}
-                  loading="lazy"
-                />
-                {a.labelAr && (
-                  <figcaption className="credential-label-ar">{a.labelAr}</figcaption>
-                )}
-              </figure>
-            )}
-            <h3 className="credential-title">{a.title}</h3>
-            <p className="credential-desc">{a.description}</p>
-          </article>
-        ))}
+    <section id="credentials" data-section aria-labelledby="credentials-h">
+      <div data-wrap>
+        <h2 className="sec-label" id="credentials-h">
+          CREDENTIALS
+        </h2>
       </div>
+      <ul className="rows">
+        {achievements.map((a) => (
+          <li data-wrap key={a.symbol}>
+            <article className="credential">
+              <span className="credential-symbol" aria-hidden="true">
+                {a.symbol}
+              </span>
+              <div className="credential-body">
+                <h3 className="credential-title">{a.title}</h3>
+                <p className="credential-desc">{a.description}</p>
+              </div>
+              {a.hasImage && (
+                <figure className="credential-figure">
+                  <img src={`${import.meta.env.BASE_URL}medal.jpg`} alt={a.imageAlt} loading="lazy" />
+                  {a.labelAr && (
+                    <figcaption className="credential-label-ar" lang="ar" dir="rtl">
+                      {a.labelAr}
+                    </figcaption>
+                  )}
+                </figure>
+              )}
+              <span className="row-rule" aria-hidden="true" />
+            </article>
+          </li>
+        ))}
+      </ul>
     </section>
   )
 }

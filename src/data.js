@@ -1,6 +1,7 @@
 export const projects = [
   {
     id: 'bayan',
+    categories: ['ai', 'web'],
     number: '001',
     name: 'BAYAN',
     nameAr: 'بيان',
@@ -13,6 +14,7 @@ export const projects = [
   },
   {
     id: 'alwordle',
+    categories: ['web', 'games'],
     number: '002',
     name: 'ALWORDLE',
     nameAr: 'الوردل',
@@ -25,6 +27,7 @@ export const projects = [
   },
   {
     id: 'poets-profiler',
+    categories: ['ai'],
     number: '003',
     name: 'POETS PROFILER',
     nameAr: null,
@@ -37,6 +40,7 @@ export const projects = [
   },
   {
     id: 'fatwak',
+    categories: ['web'],
     number: '004',
     name: 'FATWAK',
     nameAr: null,
@@ -49,6 +53,7 @@ export const projects = [
   },
   {
     id: 'phishing-demonstrator',
+    categories: ['security'],
     number: '005',
     name: 'PHISHING DEMONSTRATOR',
     nameAr: null,
@@ -60,6 +65,10 @@ export const projects = [
     url: null,
   },
 ]
+
+export const categories = ['ai', 'web', 'games', 'security']
+
+export const experience = [{ role: "CO-OP TRAINEE", org: "MOBILY", department: "DATA FACTORY & DIGITAL", period: "JUN 2026 — PRESENT" }]
 
 export const achievements = [
   {

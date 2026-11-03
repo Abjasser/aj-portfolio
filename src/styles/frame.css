@@ -1,0 +1,103 @@
+.frame {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.frame line,
+.frame rect {
+  stroke: var(--red);
+  stroke-width: 1;
+  fill: none;
+}
+
+.frame-nav,
+.frame-filters {
+  position: fixed;
+  z-index: 5;
+  display: flex;
+  top: var(--it);
+  width: var(--ix);
+  flex-direction: column;
+  align-items: center;
+  gap: 2.4rem;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: lowercase;
+  color: var(--red);
+  line-height: 1;
+}
+
+.frame-nav {
+  left: 0;
+}
+
+.frame-filters {
+  right: 0;
+}
+
+.frame-nav a,
+.frame-filters button {
+  writing-mode: vertical-rl;
+  padding: 0.5rem 0.4rem;
+  color: var(--red);
+  font-family: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  transition: color 0.25s;
+}
+
+.frame-nav a {
+  transform: rotate(180deg);
+}
+
+.frame-nav a[aria-current],
+.frame-filters button[aria-pressed='true'] {
+  color: var(--white);
+}
+
+@media (hover: hover) {
+  .frame-nav a:hover,
+  .frame-filters button:hover {
+    color: var(--white);
+  }
+}
+
+@media (max-width: 767px) {
+  .frame-nav,
+  .frame-filters {
+    top: auto;
+    left: 0;
+    right: 0;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-around;
+    gap: 0;
+    background: rgba(10, 10, 10, 0.88);
+  }
+
+  .frame-filters {
+    bottom: 38px;
+    height: 36px;
+    align-items: center;
+  }
+
+  .frame-nav {
+    bottom: 0;
+    height: 38px;
+    align-items: center;
+  }
+
+  .frame-nav a,
+  .frame-filters button {
+    writing-mode: horizontal-tb;
+    transform: none;
+    padding: 0.7rem 0.6rem;
+  }
+
+  .frame-filters button {
+    color: var(--gray);
+  }
+}

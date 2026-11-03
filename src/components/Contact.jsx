@@ -1,17 +1,11 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { identity } from '../data.js'
-import '../styles/contact.css'
-
-function Arrow() {
-  return (
-    <svg className="contact-arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
-      <path d="M2 8h11M9 3l5 5-5 5" stroke="currentColor" strokeWidth="1.4" fill="none" />
-    </svg>
-  )
-}
+import Arrow from './Arrow.jsx'
 
 export default function Contact() {
   const [copied, setCopied] = useState(false)
+  const timer = useRef(0)
+  useEffect(() => () => clearTimeout(timer.current), [])
 
   const copyEmail = async () => {
     try {
@@ -25,42 +19,49 @@ export default function Contact() {
       document.body.removeChild(ta)
     }
     setCopied(true)
-    setTimeout(() => setCopied(false), 1600)
+    clearTimeout(timer.current)
+    timer.current = setTimeout(() => setCopied(false), 1600)
   }
 
   return (
-    <section className="contact" id="contact">
-      <span className="section-label">CONTACT</span>
-      <div className="contact-lines">
-        <button className="contact-line" onClick={copyEmail} data-hover>
-          <span>{identity.email.toUpperCase()}</span>
-          {copied ? <span className="contact-copied">COPIED</span> : <Arrow />}
-        </button>
-        <a
-          className="contact-line"
-          href={`https://${identity.github}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          data-hover
-        >
-          <span>{identity.github.toUpperCase()}</span>
-          <Arrow />
-        </a>
-        <a
-          className="contact-line"
-          href={`https://${identity.linkedin}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          data-hover
-        >
-          <span>{identity.linkedin.toUpperCase()}</span>
-          <Arrow />
-        </a>
+    <section id="contact" data-section aria-labelledby="contact-h">
+      <div data-wrap>
+        <h2 className="sec-label" id="contact-h">
+          CONTACT
+        </h2>
       </div>
-      <footer className="site-footer">
-        <span>{identity.name.toUpperCase()}</span>
-        <span>RIYADH, SAUDI ARABIA</span>
-      </footer>
+      <ul className="rows">
+        <li data-wrap>
+          <div className="contact-item">
+            <button type="button" className="contact-line" onClick={copyEmail} aria-label={`Copy email ${identity.email}`}>
+              <span>{identity.email.toUpperCase()}</span>
+              <span aria-live="polite" className="contact-end">
+                {copied ? <span className="contact-copied">COPIED</span> : <Arrow />}
+              </span>
+            </button>
+            <span className="row-rule" aria-hidden="true" />
+          </div>
+        </li>
+        {[identity.github, identity.linkedin].map((u) => (
+          <li data-wrap key={u}>
+            <div className="contact-item">
+              <a className="contact-line" href={`https://${u}`} target="_blank" rel="noopener noreferrer">
+                <span>{u.toUpperCase()}</span>
+                <span className="contact-end">
+                  <Arrow />
+                </span>
+              </a>
+              <span className="row-rule" aria-hidden="true" />
+            </div>
+          </li>
+        ))}
+      </ul>
+      <div data-wrap>
+        <footer className="site-footer">
+          <span>{identity.name.toUpperCase()}</span>
+          <span>RIYADH, SAUDI ARABIA</span>
+        </footer>
+      </div>
     </section>
   )
 }

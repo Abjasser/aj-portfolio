@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=JetBrains+Mono:wght@400;700&display=swap');
+@import './frame.css';
+@import './sections.css';
 
 :root {
   --black: #0a0a0a;
@@ -6,8 +7,12 @@
   --gray: #888888;
   --red: #c0392b;
   --surface: #1a1a1a;
-  --sans: 'Inter', system-ui, sans-serif;
-  --mono: 'JetBrains Mono', monospace;
+  --display: 'Oxanium', 'Arial Narrow', sans-serif;
+  --sans: 'DM Sans', system-ui, sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, monospace;
+  --ix: 144px;
+  --it: 135px;
+  --ib: 135px;
 }
 
 * {
@@ -20,15 +25,16 @@ html {
   background: var(--black);
 }
 
-html.custom-cursor-active,
-html.custom-cursor-active * {
-  cursor: none !important;
+html.no-scroll {
+  overflow: hidden;
 }
 
 body {
   background: var(--black);
   color: var(--white);
   font-family: var(--sans);
+  font-weight: 400;
+  line-height: 1.7;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
@@ -43,6 +49,11 @@ button {
   border: none;
   color: inherit;
   font: inherit;
+  cursor: pointer;
+}
+
+ul {
+  list-style: none;
 }
 
 img {
@@ -55,11 +66,17 @@ img {
   color: var(--white);
 }
 
-.section-label {
-  font-family: var(--mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.3em;
-  color: var(--red);
-  display: block;
-  margin-bottom: 3rem;
+:focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    transition-delay: 0s !important;
+    animation: none !important;
+  }
 }

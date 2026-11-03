@@ -2,33 +2,33 @@
   position: fixed;
   inset: 0;
   z-index: 100;
-  background: #0a0a0a;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 1.5rem;
+  background: var(--black);
+  will-change: transform;
+}
+
+.loader svg {
+  position: absolute;
+  inset: 0;
+}
+
+.loader-stroke {
+  fill: none;
+  stroke: var(--red);
+  stroke-width: 1;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
 }
 
 .loader-mark {
+  position: absolute;
+  inset: 0;
   display: flex;
-  overflow: hidden;
-}
-
-.loader-char {
-  font-family: var(--sans);
-  font-weight: 900;
-  font-size: clamp(4rem, 12vw, 9rem);
-  line-height: 1;
-  color: var(--white);
+  align-items: center;
+  justify-content: center;
+  font-family: var(--display);
+  font-weight: 200;
+  font-size: clamp(3rem, 9vw, 7rem);
+  letter-spacing: 0.15em;
+  padding-left: 0.15em;
   opacity: 0;
-  transform: translateY(60px);
-}
-
-.loader-line {
-  width: 120px;
-  height: 1px;
-  background: var(--red);
-  transform: scaleX(0);
-  transform-origin: left;
 }

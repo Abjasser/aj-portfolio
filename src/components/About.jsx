@@ -1,73 +1,34 @@
-import { useEffect, useRef } from 'react'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { about } from '../data.js'
-import '../styles/about.css'
-
-gsap.registerPlugin(ScrollTrigger)
 
 export default function About() {
-  const rootRef = useRef(null)
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        '.about-word',
-        { opacity: 0 },
-        {
-          opacity: 1,
-          duration: 0.6,
-          ease: 'power2.out',
-          stagger: 0.02,
-          scrollTrigger: {
-            trigger: rootRef.current,
-            start: 'top 70%',
-          },
-        }
-      )
-      gsap.fromTo(
-        ['.about-domains li', '.about-education', '.makers-mark'],
-        { y: 20, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.6,
-          ease: 'power2.out',
-          stagger: 0.1,
-          scrollTrigger: {
-            trigger: rootRef.current,
-            start: 'top 60%',
-          },
-        }
-      )
-    }, rootRef.current)
-    return () => ctx.revert()
-  }, [])
-
   return (
-    <section className="about" ref={rootRef} id="about">
-      <span className="section-label">ABOUT</span>
-      <div className="about-grid">
-        <p className="about-statement">
-          {about.statement.split(' ').map((w, i) => (
-            <span className="about-word" key={i}>
-              {w}{' '}
-            </span>
-          ))}
-        </p>
+    <section id="about" data-section aria-labelledby="about-h">
+      <div data-wrap>
+        <h2 className="sec-label" id="about-h">
+          ABOUT
+        </h2>
+      </div>
+      <div data-wrap>
+        <p className="about-statement">{about.statement}</p>
+      </div>
+      <div data-wrap>
         <ul className="about-domains">
           {about.domains.map((d) => (
             <li key={d}>{d}</li>
           ))}
         </ul>
       </div>
-      <div className="about-education">
-        <span className="about-education-label">EDUCATION</span>
-        <p className="about-education-degree">{about.education.degree}</p>
-        <p className="about-education-school">{about.education.school}</p>
-        <p className="about-education-years">{about.education.years}</p>
+      <div data-wrap>
+        <div className="about-education">
+          <span className="about-education-label">EDUCATION</span>
+          <p className="about-education-degree">{about.education.degree}</p>
+          <p className="about-education-school">{about.education.school}</p>
+          <p className="about-education-years">{about.education.years}</p>
+        </div>
       </div>
-      <p className="makers-mark">{about.makersMark}</p>
+      <div data-wrap>
+        <p className="makers-mark">{about.makersMark}</p>
+      </div>
     </section>
   )
 }
